@@ -1,0 +1,40 @@
+<div class="container-fluid">
+  <mat-tab-group class="restrict_overflow">
+    <mat-tab label="All">
+      <div class="row restrict_overflow">
+        <div class="col-md-2">
+          <span>Order ID</span>
+        </div>
+        <div class="col-md-4">
+          <span>Items</span>
+        </div>
+        <div class="col-md-2">
+          Status
+        </div>
+        <div class="col-md-2">
+          Time
+        </div>
+      </div>
+      <div *ngFor="let order of orderDetails">
+        <mat-divider></mat-divider>
+        <div class="row">
+          <div class="col-md-2">
+            <span>{{order.order_id}}</span>
+          </div>
+          <div class="col-md-4">
+            <span>{{ order.items}}</span>
+          </div>
+          <div class="col-md-2">
+            {{order.status}}
+          </div>
+          <div class="col-md-2">
+            {{order.time}}
+          </div>
+        </div>
+
+      </div>
+    </mat-tab>
+    <mat-tab label="Processing"> Content 2 </mat-tab>
+    <mat-tab label="Completed"> Content 3 </mat-tab>
+  </mat-tab-group>
+</div>

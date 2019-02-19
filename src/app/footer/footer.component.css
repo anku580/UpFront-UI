@@ -1,0 +1,40 @@
+.footer {
+    background-color: rgba(28, 27, 31, 0.884);
+    margin: 0px auto;
+    padding: 20px 0px;
+}
+
+.brand-color {
+        color: yellow;
+}
+.border {
+    border : 1px solid yellow;
+}
+
+.row {
+    margin: 0px auto;
+}
+
+.text-color {
+    color: white;
+}
+
+.box {
+    padding: 0 5px 0 5px;
+}
+
+a {
+    text-decoration: none;
+}
+
+.horizontal-line {
+    border-top: 1px solid #8c8b8b;
+    width: 15%;
+    border-width: 5px;
+}
+/* 
+@media only screen and (min-width: 600px) {
+    .small-device-space {
+        margin-top: 2px;
+    }
+} */

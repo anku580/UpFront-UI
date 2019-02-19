@@ -1,0 +1,70 @@
+.example-container {
+    display: flex;
+    flex-direction: column;
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+}
+  
+.example-is-mobile .example-toolbar {
+    position: fixed;
+    /* Make sure the toolbar will stay on top of the content as it scrolls past. */
+    z-index: 2;
+}
+  
+h1.example-app-name {
+    margin-left: 8px;
+}
+  
+.example-sidenav-container {
+    /* When the sidenav is not fixed, stretch the sidenav container to fill the available space. This
+       causes `<mat-sidenav-content>` to act as our scrolling element for desktop layouts. */
+    flex: 1;
+}
+  
+.example-is-mobile .example-sidenav-container {
+    /* When the sidenav is fixed, don't constrain the height of the sidenav container. This allows the
+       `<body>` to be our scrolling element for mobile layouts. */
+    flex: 1 0 auto;
+}
+  
+.overflow-handling {
+    overflow-x: hidden;
+}
+
+.card {
+    background-color: white;
+}
+
+.half-width {
+    width: 70%;
+}
+
+i:hover {
+    cursor: grab;
+}
+
+.modal-1 {
+    width: 450px;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.main-model::after {
+  content : '';
+  top : 50%;
+}
+
+.vertical-expansion {
+  /* min-height: calc(100vh - 60px); */
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  overflow: auto;
+  /* @media(max-width: 768px) {
+    min-height: calc(100vh - 20px);
+  } */
+}

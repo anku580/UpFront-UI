@@ -1,0 +1,49 @@
+.rating {
+    unicode-bidi: bidi-override;
+    direction: rtl;
+  }
+  .rating > span {
+    display: inline-block;
+    position: relative;
+    width: 1.1em;
+  }
+  .rating > span:hover:before,
+  .rating > span:hover ~ span:before {
+     content: "\2605";
+     position: absolute;
+  }
+
+  .split {
+    height: 100%;
+    width: 20%;
+    position: fixed;
+    z-index: 0;
+    top: 0;
+    overflow-x: hidden;
+    padding-top: 20px;
+  }  
+  /* Control the left side */
+  .left {
+    left: 0;
+    background-color: #F3FF4E;
+  }
+
+  .right {
+    /* right: 0; */
+    left: 20%;
+    background-color: white;
+  }
+
+
+  
+.display-right {
+    flex: 1 1 auto;
+  }
+  
+.space_top {
+    margin-top: 20px;
+}
+
+.text-center {
+    left: 30%;
+}

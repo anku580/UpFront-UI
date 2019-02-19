@@ -1,0 +1,27 @@
+.brand-color {
+    color: yellow;
+}
+
+
+
+li {
+    padding: 5px 25px;
+}
+
+.btn-default {
+    
+    /* font-size: 13px; */
+    color: rgba(108, 88, 179, 0.75);
+    letter-spacing: 1px;
+    line-height: 15px;
+    border: 2px solid white;
+    border-radius: 40px;
+    background: white;
+    transition: all 0.3s ease 0s;
+  }
+  
+  .btn-default:hover {
+    color: #FFF;
+    background: black;
+    border: 2px solid rgba(108, 89, 179, 0.75);
+  }

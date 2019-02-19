@@ -1,0 +1,29 @@
+.row-content {
+    margin: 0px auto;
+    padding: 50px 0px;
+    border-bottom: 1px ridge;
+    min-height: 400px; }
+
+.display-right {
+         flex: 1 1 auto;
+}
+
+.brand-color {
+    color: yellow;
+}
+
+.btn-default {
+
+    letter-spacing: 1px;
+    border: 2px solid white;
+    border-radius: 40px;
+    background-color: yellow
+  }
+
+.margin-left {
+    margin-left: 100px;
+}
+
+.margin-right {
+    margin-right: 100px;
+}

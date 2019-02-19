@@ -1,0 +1,60 @@
+<div class="row">
+
+    <div class="col-md-6">
+        <div class="split left form-position justify-content-center">
+            <div class="row ml-5">
+                <div class="col-md">
+                    <span id="text_size">SignUp to <img src="../../assets/logo.png" alt="logo" height="32" width="32"><span
+                            class="brand-color">UP</span>FRONT</span>
+                </div>
+            </div>
+            <form novalidate [formGroup]="signupform" #fform="ngForm" (ngSubmit)="onSubmit()">
+                <div class="row ml-5 mt-2">
+                    <div class="col-md">
+                        <mat-form-field appearance="outline" class="half-width">
+                            <mat-label>Email:</mat-label>
+                            <input matInput formControlName="email" type="text" placeholder="Enter your email Id"
+                                required>
+                            <mat-hint>
+                                <span [hidden]="!(formErrors.email)">
+                                    {{formErrors.email}}</span>
+                            </mat-hint>
+                        </mat-form-field>
+                    </div>
+                </div>
+                <div class="row ml-5">
+                    <div class="col-md">
+                        <mat-form-field appearance="outline" class="half-width">
+                            <mat-label>Password:</mat-label>
+                            <input matInput formControlName="password" type="password" placeholder="Enter your password"
+                                required>
+                            <mat-hint>
+                                <span [hidden]="!(formErrors.password)">
+                                    {{formErrors.password}}</span>
+                            </mat-hint>
+                        </mat-form-field>
+                    </div>
+                </div>
+                <div class="row ml-5">
+                    <div class="col-md-5">
+                        <mat-checkbox>Remember me</mat-checkbox>
+                    </div>
+                    <div class="col-md">
+                        <span>Forgot Password?</span>
+                    </div>
+                </div>
+                <div class="row ml-5">
+                    <div class="col-md">
+                        <button type="submit" class="btn btn-lg btn-block button-color" [disabled]="signupform.invalid">Sign Up</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+    <div class="centered hide">
+    </div>
+    <div class="col-md-4 col-sm hide">
+        <div class="split right">     
+        </div>
+    </div>
+</div>

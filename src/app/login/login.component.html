@@ -1,0 +1,106 @@
+<div class="row hide">
+    <div class="split left">
+    </div>
+    <div class="centered"></div>
+    <div class="tsplit righ form-position">
+        <div class="row ml-5">
+            <div class="col-md col-sm ">
+                <span @fade id="text_size">Login to <img src="../../assets/logo.png" alt="logo" height="32"
+                        width="32"><span class="brand-color">UP</span>FRONT</span>
+            </div>
+        </div>
+        <form novalidate [formGroup]="loginForm" #fform="ngForm" (ngSubmit)="onSubmit()" @fade>
+            <div class="row ml-5 mt-2">
+                <div class="col-md col-sm">
+                    <mat-form-field appearance="outline" class="half-width">
+                        <mat-label>Email:</mat-label>
+                        <input matInput formControlName="email" type="text" placeholder="Enter your email Id" required>
+                        <mat-hint>
+                            <span [hidden]="!(formErrors.email)">
+                                {{formErrors.email}}</span>
+                        </mat-hint>
+                    </mat-form-field>
+                </div>
+            </div>
+            <div class="row ml-5">
+                <div class="col-md sol-sm">
+                    <mat-form-field appearance="outline" class="half-width">
+                        <mat-label>Password:</mat-label>
+                        <input matInput formControlName="password" type="password" placeholder="Enter your password"
+                            required>
+                        <mat-hint>
+                            <span [hidden]="!(formErrors.password)">
+                                {{formErrors.password}}</span>
+                        </mat-hint>
+                    </mat-form-field>
+                </div>
+            </div>
+            <div class="row ml-5">
+                <div class="col-md-5">
+                    <mat-checkbox>Remember me</mat-checkbox>
+                </div>
+                <div class="col-md">
+                    <span>Forgot Password?</span>
+                </div>
+            </div>
+            <div class="row ml-5">
+                <div class="col-md">
+                    <button type="submit" class="btn btn-lg btn-block button-color" [disabled]="loginForm.invalid">Log
+                        in</button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+
+<div class="show hide_1 centered-small" @fade>
+    <div class="row ml-5 mt-2">
+        <div class="col-sm-auto text_center"><span id="text_size1">Login to </span><span><img
+                    src="../../assets/logo.png" alt="logo" height="32" width="32"><span
+                    class="brand-color">UP</span>FRONT</span></div>
+    </div>
+    <form novalidate [formGroup]="loginForm" #fform="ngForm" (ngSubmit)="onSubmit()">
+        <div class="row ml-5 mt-3">
+            <div class="col-md col-sm">
+                <mat-form-field appearance="outline" class="half-width-small">
+                    <mat-label>Email:</mat-label>
+                    <input matInput formControlName="email" type="text" placeholder="Enter your email Id" required>
+                    <mat-hint>
+                        <span [hidden]="!(formErrors.email)">
+                            {{formErrors.email}}</span>
+                    </mat-hint>
+                </mat-form-field>
+            </div>
+        </div>
+        <div class="row ml-5">
+            <div class="col-md col-sm">
+                <mat-form-field appearance="outline" class="half-width-small">
+                    <mat-label>Password:</mat-label>
+                    <input matInput formControlName="password" type="password" placeholder="Enter your password"
+                        required>
+                    <mat-hint>
+                        <span [hidden]="!(formErrors.password)">
+                            {{formErrors.password}}</span>
+                    </mat-hint>
+                </mat-form-field>
+            </div>
+        </div>
+        <div class="row ml-5">
+            <div class="col-sm">
+                <mat-checkbox>Remember me</mat-checkbox>
+            </div>
+            <div class="col-sm">
+                <span>Forgot Password?</span>
+            </div>
+        </div>
+        <div class="row ml-5 mt-3 mb-3">
+            <div class="col-sm">
+                <button type="submit" class="btn btn-lg btn-block button-color" [disabled]="loginForm.invalid">Log
+                    in</button>
+            </div>
+        </div>
+    </form>
+</div>
+
+<!-- Uncomment this code to use loader-->
+<!-- <mat-spinner class="centered" *ngIf="flag"></mat-spinner> -->
