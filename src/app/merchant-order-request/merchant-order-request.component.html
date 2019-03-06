@@ -1,83 +1,82 @@
 <div class="container-fluid">
-    <div class="row mt-5">
-      <div class="col-md-6">
-      </div>
-      <div class="col-md-3">
-        <div class="text-center">
-          <span id="round">
-            &nbsp;{{ orders.length }}
-          </span>
-          <b>Current Requests</b>
-        </div>
-      </div>
-      <div class="col-md-3">
-        <button class="btn btn-lg btn-warning" routerLink="/merchant/menu">Available Items</button>
+  <div class="row mt-5">
+    <div class="col-md-6">
+    </div>
+    <div class="col-md-3">
+      <div class="text-center">
+        <span id="round">
+          &nbsp;{{ orders.length }}
+        </span>
+        <b>Current Requests</b>
       </div>
     </div>
-  
-    <!-- The first table structure -->
-    <div class="row mt-5">
-      <div class="col-md-1">
-        <div class="text-center">
-          S.No
-        </div>
-      </div>
-      <div class="col-md-4">
-        <div class="text-center">
-          Items
-        </div>
-      </div>
-      <div class="col-md-2">
-        <div class="text-center">
-          Quantity
-        </div>
-      </div>
-      <div class="col-md-3">
-        <div class="text-center">
-          Time
-        </div>
-      </div>
-      <div class="col-md-2">
-        <div class="text-center">
-          Order Status
-        </div>
+    <div class="col-md-3">
+      <button class="btn btn-lg btn-warning" routerLink="/merchant/menu">Available Items</button>
+    </div>
+  </div>
+
+  <!-- The first table structure -->
+  <div class="row mt-5">
+    <div class="col-md-1">
+      <div class="text-center">
+        S.No
       </div>
     </div>
-  
-    <div *ngFor="let order of orders; let i = index">
-      <div class="row">
-        <div class="card order-table">
-          <div class="card-body">
-            <div class="row">
-              <div class="col-md-1">
-                <div class="text-center">
-                  {{i + 1}}
-                </div>
-              </div>
-              <div class="col-md-4">
-                <div class="text-center">
-                  {{order.items}}
-                </div>
-              </div>
-              <div class="col-md-2">
-                <div class="text-center">
-                  {{order.quantity}}
-                </div>
-              </div>
-              <div class="col-md-3">
-                <div class="text-center">
-                  {{order.time}}
-                </div>
-              </div>
-              <div class="col-md-2">
-                <div class="text-center">
-                  <button class="btn btn-primary">Accept</button>
-                  <button class="btn btn-danger ml-1">Reject</button>
-                </div>
-              </div>
+    <div class="col-md-4">
+      <div class="text-center">
+        Items
+      </div>
+    </div>
+    <div class="col-md-2">
+      <div class="text-center">
+        Quantity
+      </div>
+    </div>
+    <div class="col-md-3">
+      <div class="text-center">
+        Time
+      </div>
+    </div>
+    <div class="col-md-2">
+      <div class="text-center">
+        Order Status
+      </div>
+    </div>
+  </div>
+
+  <div *ngFor="let order of orders; let i = index">
+
+    <div class="card order-table">
+      <div class="card-body">
+        <div class="row">
+          <div class="col-md-1">
+            <div class="text-center">
+              {{i + 1}}
+            </div>
+          </div>
+          <div class="col-md-4">
+            <div class="text-center">
+              {{order.items}}
+            </div>
+          </div>
+          <div class="col-md-2">
+            <div class="text-center">
+              {{order.quantity}}
+            </div>
+          </div>
+          <div class="col-md-3">
+            <div class="text-center">
+              {{order.time}}
+            </div>
+          </div>
+          <div class="col-md-2">
+            <div class="text-center">
+              <button class="btn btn-primary">Accept</button>
+              <button class="btn btn-danger ml-1">Reject</button>
             </div>
           </div>
         </div>
       </div>
     </div>
   </div>
+</div>

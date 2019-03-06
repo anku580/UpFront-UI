@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl } from '@angular/forms';
 import { FormBuilder, Validators } from '@angular/forms';
+import { AuthService } from '../services/auth.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-signup',
@@ -15,7 +17,8 @@ export class SignupComponent implements OnInit {
 
   formErrors = {
     'email': '',
-    'password': ''
+    'password': '',
+    'username': ''
   };
 
   validationMessages = {
@@ -27,11 +30,18 @@ export class SignupComponent implements OnInit {
       'required': 'password is required.',
       'minlength': 'password must be at least 2 characters long',
       'maxlength': 'password cannot be more than 25 characters long'
+    },
+    'username': {
+      'required': 'username is required',
+      'minlength': 'username should be atleast 2 characters long',
+      'maxlength': 'username cannot be more than 10 characters long'
     }
 
   };
 
-  constructor(private fb: FormBuilder) { }
+  constructor(private fb: FormBuilder,
+    private router: Router,
+    private authService: AuthService) { }
 
   ngOnInit() {
     this.createForm();
@@ -41,6 +51,7 @@ export class SignupComponent implements OnInit {
 
     this.signupform = this.fb.group({
       email: ['', [Validators.required, Validators.email]],
+      username: ['', [Validators.required, Validators.minLength(2), Validators.maxLength(10)]],
       password: ['', [Validators.required, Validators.minLength(3), Validators.maxLength(25)]]
     })
 
@@ -69,24 +80,22 @@ export class SignupComponent implements OnInit {
   onSubmit() {
 
 
-    this.signupform.value.role = "user";
+    //this.signupform.value.role = "user";
     this.signupDetails = this.signupform.value;
     console.log(this.signupDetails);
-    // this.authService.logIn(this.loginDetails)
-    //   .subscribe(res => {
-    //     if (res.success) {
-    //       console.log(res)
-    //       alert("Logged in")
-    //       this.router.navigateByUrl('/dashboard');
-    //     }
-    //     else {
-    //       console.log(res);
-    //     }
-    //   },
-    //     error => {
-    //       console.log(error);
-
-    //     })
+    this.authService.signUp(this.signupDetails)
+      .subscribe(res => {
+        if (res.success) {
+          console.log(res)
+          alert("Account Created")
+          this.router.navigateByUrl('/login');
+        }
+        else {
+          console.log(res);
+        }
+      },
+        error => {
+          console.log(error);
+        })
   }
-
 }

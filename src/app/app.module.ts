@@ -33,12 +33,28 @@ import { MerchantNavbarComponent } from './merchant-navbar/merchant-navbar.compo
 import { MerchantDetailComponent } from './merchant-detail/merchant-detail.component';
 import { MerchantOrderRequestComponent } from './merchant-order-request/merchant-order-request.component';
 
+import { AuthService } from './services/auth.service';
+import { MerchantMenuServiceService } from './services/merchant-menu-service.service';
+import { ProcessHttpmsgService } from './services/process-httpmsg.service';
+import { MerchantResturantsService } from './services/merchant-resturants.service';
+
+import { RestangularModule, Restangular } from 'ngx-restangular';
+import { RestangularConfigFactory } from './shared/restConfig';
+import { baseURL } from './shared/baseURL';
+import { HttpClientModule } from '@angular/common/http';
+import { AuthInterceptor, UnauthorizedInterceptor } from './services/auth.interceptor';
+// import { HighlightDirective } from './directives/highlight.directive';
+import {HTTP_INTERCEPTORS} from '@angular/common/http';
+import { MerchantResturantsComponent } from './merchant-resturants/merchant-resturants.component';
+
 const routes: Routes = [
   { path: '', redirectTo: 'merchant', pathMatch: 'full' },
   { path: 'login', component: LoginComponent },
-  { path: 'merchant/menu', component: MerchantMenuComponent },
+  { path: 'restaurant/:id', component: MerchantMenuComponent },
   // {path: 'merchant/order', component: MerchantOrderComponent},
   // {path: 'merchant/order/history', component: MerchantOrderComponent},
+  { path: 'restaurants', component: MerchantResturantsComponent },
+
   { path: 'admin', component: MerchantDetailComponent },
   {
     path: 'merchant/navbar', component: MerchantNavbarComponent, children: [
@@ -71,6 +87,7 @@ const routes: Routes = [
     MerchantNavbarComponent,
     MerchantDetailComponent,
     MerchantOrderRequestComponent,
+    MerchantResturantsComponent,
     
   ],
   imports: [
@@ -85,9 +102,27 @@ const routes: Routes = [
     MatInputModule, MatRadioModule, MatSelectModule, MatSliderModule,
     MatSlideToggleModule, MatToolbarModule, MatListModule, MatGridListModule,
     MatCardModule, MatIconModule, MatProgressSpinnerModule, MatDialogModule, BrowserAnimationsModule, MatSidenavModule,
-    MatExpansionModule,MatTabsModule
+    MatExpansionModule,MatTabsModule,
+    RestangularModule.forRoot(RestangularConfigFactory),
+    HttpClientModule
   ],
-  providers: [],
+  providers: [
+    AuthService,
+    MerchantMenuServiceService,
+    ProcessHttpmsgService,
+    MerchantResturantsService,
+    { provide : 'baseURL', useValue : baseURL},
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: UnauthorizedInterceptor,
+      multi: true
+    },
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: AuthInterceptor,
+      multi: true
+    },
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

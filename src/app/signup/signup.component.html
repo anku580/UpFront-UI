@@ -22,6 +22,19 @@
                         </mat-form-field>
                     </div>
                 </div>
+                <div class="row ml-5 mt-2">
+                    <div class="col-md">
+                        <mat-form-field appearance="outline" class="half-width">
+                            <mat-label>Username:</mat-label>
+                            <input matInput formControlName="username" type="text" placeholder="Enter your username"
+                                required>
+                            <mat-hint>
+                                <span [hidden]="!(formErrors.username)">
+                                    {{formErrors.username}}</span>
+                            </mat-hint>
+                        </mat-form-field>
+                    </div>
+                </div>
                 <div class="row ml-5">
                     <div class="col-md">
                         <mat-form-field appearance="outline" class="half-width">

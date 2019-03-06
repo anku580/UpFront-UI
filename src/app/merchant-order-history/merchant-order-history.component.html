@@ -1,13 +1,13 @@
 <div class="container-fluid">
   <div class="row">
-    <!-- <div *ngFor="let history of orderHistoryDetails; let i = index"> -->
-      <!-- <div *ngIf="i%2 === 0"> -->
-        <div class="col-md-6">
-          <div class="card">
+    <div class="col-md-6">
+      <div *ngFor="let history of orderHistoryDetails; let i = index">
+        <div *ngIf="i%2 === 0">
+          <div class="card mt-2">
             <div class="row">
               <div class="back-color">
-                <div class="col-md-1">
-                  1
+                <div class="col-md-1 middle">
+                    {{i+1}}
                 </div>
               </div>
               <div class="col-md-11">
@@ -44,53 +44,55 @@
               </div>
             </div>
           </div>
-        <!-- </div> -->
+        </div>
       </div>
-      <!-- <div *ngIf="i%2 === 1"> -->
-        <div class="col-md-6">
-          <div class="card">
+    </div>
+    <div class="col-md-6">
+      <div *ngFor="let history of orderHistoryDetails; let i = index">
+        <div *ngIf="i%2 === 1">
+          <div class="card mt-2">
             <div class="row">
               <div class="back-color">
-                <div class="col-md-1">
-                  1
+                <div class="col-md-1 middle">
+                  {{i+1}}
                 </div>
               </div>
               <div class="col-md-11">
                 <div class="card-body">
                   <div class="row">
                     <div class="col-md-4">
-                      <span>Order Id</span><br>
+                      <span><b>Order Id</b></span><br>
                       <span>1234</span>
                     </div>
                     <div class="col-md-4">
-                      <span>Username</span><br>
+                      <span><b>Username</b></span><br>
                       <span>Anku</span>
                     </div>
                     <div class="col-md-4">
-                      <span>Amount</span><br>
+                      <span><b>Amount</b></span><br>
                       <span>874.00</span>
                     </div>
                   </div>
                   <div class="row mt-3">
                     <div class="col-md-4">
-                      <span>Order Time</span><br>
+                      <span><b>Order Time</b></span><br>
                       <span>7:54 pm</span>
                     </div>
                     <div class="col-md-4">
-                      <span>Completion Time</span><br>
+                      <span><b>Completion Time</b></span><br>
                       <span>8:30 pm</span>
                     </div>
                     <div class="col-md-4">
-                      <span>Status</span><br>
+                      <span><b>Status</b></span><br>
                       <span>Completed</span>
                     </div>
                   </div>
                 </div>
               </div>
             </div>
-          <!-- </div> -->
+          </div>
         </div>
-      <!-- </div> -->
+      </div>
     </div>
   </div>
 </div>

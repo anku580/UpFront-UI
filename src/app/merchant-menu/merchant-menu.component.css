@@ -46,7 +46,7 @@ i:hover {
     cursor: grab;
 }
 
-.modal-1 {
+/* .modal-1 {
     width: 450px;
     left: 50%;
     top: 50%;
@@ -59,12 +59,57 @@ i:hover {
 }
 
 .vertical-expansion {
-  /* min-height: calc(100vh - 60px); */
+  
   display: flex;
   flex-direction: column;
   justify-content: center;
   overflow: auto;
-  /* @media(max-width: 768px) {
-    min-height: calc(100vh - 20px);
-  } */
+ 
+} */
+
+mat-sidenav, 
+mat-sidenav.mat-locked-open, 
+mat-sidenav.mat-closed.mat-locked-open-add-active {
+    min-width: 200px !important;
+    width: 85vw !important;
+    max-width: 300px !important;
+} 
+
+.color {
+    background: #FFDA61;
 }
+
+.example-toolbar {
+    /* height: 150px; */
+    background: #FFDA61;
+    overflow-x: hidden;
+}
+
+img {
+    height: 11rem;
+}
+
+.display-right {
+    
+    flex: 1 1 auto;
+  }
+
+  .img-wrap {
+    position: relative;
+}
+.img-wrap .close {
+    position: absolute;
+    top: 2px;
+    right: 2px;
+    z-index: 100;
+  
+}
+
+/* .mat-drawer:not(.mat-drawer-side) {
+    position: fixed;
+}
+
+.mat-drawer-backdrop {
+    position: fixed !important;
+} */
+

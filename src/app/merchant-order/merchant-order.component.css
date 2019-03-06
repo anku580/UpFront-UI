@@ -110,5 +110,22 @@ h1.example-app-name {
 }
 
 .restrict_overflow {
+  overflow-x: visible;
+}
+
+.card {
+  background: #F3F3F3;
+  width: 100%;
+}
+
+.align-items-center {
+  text-align : center;
+}
+
+.container-fluid {
   overflow-x: hidden;
+}
+
+.text-center1 {
+  text-align : center;
 }

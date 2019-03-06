@@ -1,0 +1,15 @@
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-md-12 text-center">
+      <h2>{{ currentOwner.username }}</h2>
+    </div>
+  </div>
+  <mat-grid-list cols="2" rowHeight="200px">
+    <mat-grid-tile *ngFor="let resturant of resturants" [routerLink]="['/restaurant',resturant.id]" appHighlight>
+      <img height="200px" src="{{BaseURL + resturant.image}}" alt={{resturant.name}}>
+      <mat-grid-tile-footer>
+        <h1 md-line>{{resturant.name | uppercase}}</h1>
+      </mat-grid-tile-footer>
+    </mat-grid-tile>
+  </mat-grid-list>
+</div>

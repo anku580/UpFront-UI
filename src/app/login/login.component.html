@@ -2,7 +2,7 @@
     <div class="split left">
     </div>
     <div class="centered"></div>
-    <div class="tsplit righ form-position">
+    <div class="split right form-position">
         <div class="row ml-5">
             <div class="col-md col-sm ">
                 <span @fade id="text_size">Login to <img src="../../assets/logo.png" alt="logo" height="32"
@@ -13,11 +13,11 @@
             <div class="row ml-5 mt-2">
                 <div class="col-md col-sm">
                     <mat-form-field appearance="outline" class="half-width">
-                        <mat-label>Email:</mat-label>
-                        <input matInput formControlName="email" type="text" placeholder="Enter your email Id" required>
+                        <mat-label>Username:</mat-label>
+                        <input matInput formControlName="username" type="text" placeholder="Enter your username" required>
                         <mat-hint>
-                            <span [hidden]="!(formErrors.email)">
-                                {{formErrors.email}}</span>
+                            <span [hidden]="!(formErrors.username)">
+                                {{formErrors.username}}</span>
                         </mat-hint>
                     </mat-form-field>
                 </div>
@@ -63,11 +63,11 @@
         <div class="row ml-5 mt-3">
             <div class="col-md col-sm">
                 <mat-form-field appearance="outline" class="half-width-small">
-                    <mat-label>Email:</mat-label>
-                    <input matInput formControlName="email" type="text" placeholder="Enter your email Id" required>
+                    <mat-label>Username:</mat-label>
+                    <input matInput formControlName="username" type="text" placeholder="Enter your username" required>
                     <mat-hint>
-                        <span [hidden]="!(formErrors.email)">
-                            {{formErrors.email}}</span>
+                        <span [hidden]="!(formErrors.username)">
+                            {{formErrors.username}}</span>
                     </mat-hint>
                 </mat-form-field>
             </div>

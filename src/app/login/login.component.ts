@@ -3,6 +3,8 @@ import { FormGroup, FormControl } from '@angular/forms';
 import { FormBuilder, Validators } from '@angular/forms';
 import { Subscription } from 'rxjs';
 import { trigger, state, style, animate, transition } from '@angular/animations';
+import { AuthService } from '../services/auth.service';
+import { Router } from '@angular/router';
 
 
 @Component({
@@ -29,14 +31,13 @@ export class LoginComponent implements OnInit {
   merchantLanding = false;
 
   formErrors = {
-    'email': '',
+    'username': '',
     'password': ''
   };
 
   validationMessages = {
-    'email': {
-      'required': 'Email is required.',
-      'email': 'Email not in valid format'
+    'username': {
+      'required': 'username is required.'
     },
     'password': {
       'required': 'password is required.',
@@ -46,17 +47,20 @@ export class LoginComponent implements OnInit {
 
   };
 
-  constructor(private fb: FormBuilder) { }
+  constructor(private fb: FormBuilder,
+    private authService: AuthService,
+    private router: Router) { }
 
   ngOnInit() {
     this.flag = false;
     this.createForm();
+    // localStorage.removeItem('currentUser');
   }
 
   createForm() {
 
     this.loginForm = this.fb.group({
-      email: ['', [Validators.required, Validators.email]],
+      username: ['', [Validators.required]],
       password: ['', [Validators.required, Validators.minLength(3), Validators.maxLength(25)]]
     })
 
@@ -83,7 +87,7 @@ export class LoginComponent implements OnInit {
   }
 
   toggle() {
-    
+
     this.flag = !this.flag;
     return this.flag;
   }
@@ -94,20 +98,25 @@ export class LoginComponent implements OnInit {
     this.loginForm.value.role = "user";
     this.loginDetails = this.loginForm.value;
     console.log(this.loginDetails);
-    // this.authService.logIn(this.loginDetails)
-    //   .subscribe(res => {
-    //     if (res.success) {
-    //       console.log(res)
-    //       alert("Logged in")
-    //       this.router.navigateByUrl('/dashboard');
-    //     }
-    //     else {
-    //       console.log(res);
-    //     }
-    //   },
-    //     error => {
-    //       console.log(error);
+    let data = {
+        "username" : this.loginForm.value.username,
+        "password" : this.loginForm.value.password
+    }
+    console.log(data);
+    this.authService.logIn(data)
+      .subscribe(res => {
+        if (res.success) {
+          console.log(res)
+          alert("Logged in")
+          this.router.navigateByUrl('/restaurants');
+        }
+        else {
+          console.log(res);
+        }
+      },
+        error => {
+          console.log(error);
 
-    //     })
+        })
   }
 }

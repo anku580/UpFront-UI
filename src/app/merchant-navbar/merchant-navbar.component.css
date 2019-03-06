@@ -112,3 +112,19 @@ h1.example-app-name {
 a {
   text-decoration: none;
 }
+
+.restrict_overflow {
+  overflow-x: hidden;
+}
+
+mat-sidenav, 
+mat-sidenav.mat-locked-open, 
+mat-sidenav.mat-closed.mat-locked-open-add-active {
+    min-width: 200px !important;
+    width: 85vw !important;
+    max-width: 250px !important;
+} 
+
+/* .active {
+  background: #4527A0;
+} */

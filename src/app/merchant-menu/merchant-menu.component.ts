@@ -1,5 +1,10 @@
-import { Component, OnInit, ChangeDetectorRef, OnDestroy } from '@angular/core';
-import { MediaMatcher } from '@angular/cdk/layout'; 
+import { Component, OnInit, ChangeDetectorRef, OnDestroy, HostListener } from '@angular/core';
+import { MediaMatcher } from '@angular/cdk/layout';
+import { Subscription } from 'rxjs';
+import { AuthService } from '../services/auth.service';
+import { Params, ActivatedRoute, Router } from '@angular/router';
+import { MerchantMenuServiceService } from '../services/merchant-menu-service.service';
+import { switchMap } from 'rxjs/operators';
 
 @Component({
   selector: 'app-merchant-menu',
@@ -9,150 +14,95 @@ import { MediaMatcher } from '@angular/cdk/layout';
 export class MerchantMenuComponent implements OnInit, OnDestroy {
 
   mobileQuery: MediaQueryList;
-  foodTypes = [
-    {
-      category : "starters",
-      dishes :[
-        {
-          name : "Veg Manchurain",
-          imgURL : "../../assets/food_1.jpg",
-          price : "120rs"
-        },
-        {
-          name : "Cheese Chilli",
-          imgURL : "../../assets/food_1.jpg",
-          price : "120rs"
-        },
-        {
-          name : "Panner Roll",
-          imgURL : "../../assets/food_1.jpg",
-          price : "120rs"
-        }
-      ]
-    },
-    {
-      category : "South Indian",
-      dishes : [
-        {
-          name : "Idli",
-          imgURL : "../../assets/food_1.jpg",
-          price : "120rs"
-        },
-        {
-          name : "Masala Dosa",
-          imgURL : "../../assets/food_1.jpg",
-          price : "120rs"
-        },
-        {
-          name : "Vada",
-          imgURL : "../../assets/food_1.jpg",
-          price : "120rs"
-        }
-      ]
-    },
-    {
-      category : "North Indian",
-      dishes : [
-        {
-          name : "Panner Prantha",
-          imgURL : "../../assets/food_1.jpg",
-          price : "120rs"
-        },
-        {
-          name : "Aaloo Prantha",
-          imgURL : "../../assets/food_1.jpg",
-          price : "120rs"
-        },
-        {
-          name : "Dal Roti",
-          imgURL : "../../assets/food_1.jpg",
-          price : "120rs"
-        }
-      ]
-    },
-    {
-      category : "Western",
-      dishes : [
-        {
-          name : "Truffle Pastry",
-          imgURL : "../../assets/food_1.jpg",
-          price : "120rs"
-        },
-        {
-          name : "Choclate Pastry",
-          imgURL : "../../assets/food_1.jpg",
-          price : "120rs"
-        }
-      ]
-    },
-    {
-      category : "Chinese",
-      dishes : [
-        {
-          name : "Hakka Noodles",
-          imgURL : "../../assets/food_1.jpg",
-          price : "120rs"
-        },
-        {
-          name : "Schezwan Noodles",
-          imgURL : "../../assets/food_1.jpg",
-          price : "120rs"
-        }
-      ]
-    },
-    {
-      category : "Dry",
-      dishes : [
-        {
-          name : "Channa Masala",
-          imgURL : "../../assets/food_1.jpg",
-          price : "120rs"
-        },
-        {
-          name : "Chicken",
-          imgURL : "../../assets/food_1.jpg",
-          price : "120rs"
-        }
-      ]
-    },
-    {
-      category : "Deserts",
-      dishes : [
-        {
-          name : "Gajar ka Halwa",
-          imgURL : "../../assets/food_1.jpg",
-          price : "120rs"
-        },
-        {
-          name : "Gulab Jamun",
-          imgURL : "../../assets/food_1.jpg",
-          price : "120rs"
-        }
-      ]
-    }
-  ]
+  subscription: Subscription;
+  delete: boolean;
+  username: string;
+  category: Array<any>;
+  foodTypes: Array<any>
+  private restaurantId : number;
 
   food = [
     {
-      "type" : "Western",
-      "name" : ""
+      "type": "Western",
+      "name": ""
     }
   ]
-  constructor(private changeDetectorRef: ChangeDetectorRef,
-    private media: MediaMatcher) { }
-
 
   private _mobileQueryListener: () => void;
 
+  constructor(private changeDetectorRef: ChangeDetectorRef,
+    private media: MediaMatcher,
+    private authService: AuthService,
+    private route: ActivatedRoute,
+    private router: Router,
+    private menuService: MerchantMenuServiceService) { }
+
+
+  
+
   ngOnInit() {
+
     this.mobileQuery = this.media.matchMedia('(max-width: 600px)');
     this._mobileQueryListener = () => this.changeDetectorRef.detectChanges();
     this.mobileQuery.addListener(this._mobileQueryListener);
+
+    this.authService.loadUserCredentials();
+    this.subscription = this.authService.getUsername()
+      .subscribe(name => { console.log(name); this.username = name; })
+    
+    /*-------------------------------------------------  
+    |                                                  |
+    |  It fetches the categories from the menu service |
+    |                                                  | 
+    --------------------------------------------------*/
+    this.route.params.pipe(switchMap((params: Params) => {
+      this.restaurantId = params['id'];
+      return this.menuService.getMerchantMenu(params['id']);
+    }))
+    .subscribe(menu => {
+        this.foodTypes = menu.menu_list;
+        console.log(this.foodTypes)
+    })
+
+    
   }
 
   ngOnDestroy(): void {
-    //this.subscription.unsubscribe();
+
+    // this.subscription.unsubscribe();
     this.mobileQuery.removeListener(this._mobileQueryListener);
+  }
+
+  @HostListener("window:scroll", ["$event"])
+  onWindowScroll(event) {
+    // prevent the background from scrolling when the dialog is open.
+    event.stopPropagation();
+  }
+
+  logOut() {
+
+    this.router.navigateByUrl('/login');
+    this.username = undefined;
+    this.authService.logOut();
+  }
+
+  onSideNavScroll(event){ event.stopPropagation() }
+
+  deleteDish(dishId) {
+    console.log("Dish deleted", dishId);
+
+    /*-------------------------------------------------  
+    |                                                  |
+    |       It will delete a dish from the menu        |
+    |                                                  | 
+    --------------------------------------------------*/
+    this.menuService.deleteMerchantDish(this.restaurantId, dishId)
+    .subscribe( response => {
+      alert("Dish deleted");
+    }, error => {
+      console.error(error);
+    })
+    this.delete = false;
   }
 
 }
