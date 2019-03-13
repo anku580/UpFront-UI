@@ -4,18 +4,26 @@
   }
   
   .searchTerm {
-    float: left;
+    
     width: 100%;
     border: 3px solid black;
     padding: 5px;
     height: 40px;
-    border-radius: 5px;
+    border-width: 2px 4px;
+    border-radius: 40px;
     outline: none;
     color: #9DBFAF;
+    font-family: 'Montserrat', sans-serif;
+
   }
   
   .searchTerm:focus{
-    color: #00B4CC;
+    color: yellow;
+  }
+
+  a {
+    font-family: 'Montserrat', sans-serif;
+
   }
   
   .searchButton {
@@ -35,8 +43,8 @@
   /*Resize the wrap to see the search bar change!*/
   .wrap{
     /* width: 50%; */
-    margin-left: 30%;
-    width: 25%;
+    
+    width: 60%;
   }
   
   .order-table {
@@ -66,6 +74,9 @@
   right: 0;
 }
 
+.example-toolbar {
+  background: #FFFFFF;
+}
 .example-is-mobile .example-toolbar {
   position: fixed;
   /* Make sure the toolbar will stay on top of the content as it scrolls past. */
@@ -122,9 +133,28 @@ mat-sidenav.mat-locked-open,
 mat-sidenav.mat-closed.mat-locked-open-add-active {
     min-width: 200px !important;
     width: 85vw !important;
-    max-width: 250px !important;
+    max-width: 200px !important;
 } 
 
-/* .active {
-  background: #4527A0;
-} */
+.active {
+  background: rgb(198, 218, 214);
+}
+
+.user {
+  display: inline-block;
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+
+  background-repeat: no-repeat;
+  background-position: center center;
+  background-size: cover;
+}
+
+.middle {
+  margin-left: 20%;
+}
+
+.space_top_logo {
+  margin-top: 80px;
+}

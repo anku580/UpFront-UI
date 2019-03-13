@@ -2,11 +2,17 @@
 @import "~bootstrap/dist/css/bootstrap.css";
 @import "~font-awesome/css/font-awesome.css";
 @import url('https://fonts.googleapis.com/css?family=Play');
+@import url('https://fonts.googleapis.com/css?family=Montserrat');
 @import "~@angular/material/prebuilt-themes/indigo-pink.css";
 
 body {
     overflow-x: hidden;
+    background-color: #FFFFFF;
 }
 .color {
-    background: #FFDA61;
+     background-image: linear-gradient(to bottom,#FFDA61,#FF5353);
+}
+
+*{
+    font-family: 'Play', sans-serif;
 }

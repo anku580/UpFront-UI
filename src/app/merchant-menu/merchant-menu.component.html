@@ -1,21 +1,16 @@
 <div class="example-container overflow-handling" [class.example-is-mobile]="mobileQuery.matches">
-  <mat-toolbar class="example-toolbar">
-    <button mat-icon-button (click)="snav.toggle()">
-      <span class="fa fa-bars fa-lg"></span>
-    </button>
-    <span class="display-right"></span>
-    <a *ngIf="username">{{username}}</a>
-    <a *ngIf="username" mat-button (click)="logOut()"><span class="fa fa-sign-out fa-lg"></span> Logout</a>
-  </mat-toolbar>
-
-
+ 
   <mat-sidenav-container class="example-sidenav-container" [style.marginTop.px]="mobileQuery.matches ? 56 : 0">
-    <mat-sidenav #snav [mode]="mobileQuery.matches ? 'over' : 'side'" [fixedInViewport]="mobileQuery.matches"
-      fixedTopGap="400" class="color">
+
+    <mat-sidenav opened mode="side" [mode]="mobileQuery.matches ? 'over' : 'side'"
+      [fixedInViewport]="mobileQuery.matches" fixedTopGap="400" class="color">
+
       <div class="overflow-handling">
+
         <mat-list-item>
           <h3 class="mt-2 text-center">Food Style</h3>
         </mat-list-item>
+
         <div *ngFor="let type of foodTypes; let i = index">
           <mat-list-item class="mt-2">
             <div class="row">
@@ -34,29 +29,41 @@
                   </mat-expansion-panel>
                 </div>
               </div>
-              <!-- <div class="col-md-2 mt-3 align-item-center">
-              <a class="button" data-toggle="modal" data-target="#exampleModal"><i class="fa fa-plus"
-                  aria-hidden="true"></i></a>
-            </div> -->
             </div>
           </mat-list-item>
         </div>
+
         <div class="mt-5">
           <mat-list-item class="text-center">
-            <a routerLink="/merchant/navbar/request">Back To orders</a>
+            <button type="button" class="btn btn-default noborder button-shadow" data-toggle="modal" data-target="#addCategory">
+            <i class="fa fa-plus"></i>
+            Add Category
+            </button>
+          </mat-list-item>
+          <mat-list-item class="text-center mt-2">
+            <a mat-button routerLink="/merchant/navbar/request">Back To orders</a>
           </mat-list-item>
         </div>
+
       </div>
     </mat-sidenav>
+
     <mat-sidenav-content>
+
       <div class="container-fluid">
-        <div class="row float-right mt-3">
-          <div *ngIf="delete">
-            <a class="btn btn-warning" data-toggle="modal" data-target="#exampleModal">Add Dish</a>
-          </div>&nbsp;
-          <mat-slide-toggle fxFlex [(ngModel)]="delete" [color]="Warn">
-            Update items!
-          </mat-slide-toggle>
+        <div class="row mt-3">
+          <div class="col-md-12" *ngIf="delete">
+            <div class="float-right">
+              <a class="btn btn-default btn-hover mr-1">Add offers</a>
+              <a class="btn btn-default btn-hover mr-1" data-toggle="modal" data-target="#exampleModal">Add Item</a>
+              <a class="btn btn-default btn-hover" (click)="updateStatus()">Done</a>
+            </div>
+          </div>
+          <div class="col-md-12" *ngIf="!delete">
+            <div class="float-right">
+              <button class="btn btn-default btn-hover" (click)="updateStatus()">Update items</button>
+            </div>
+          </div>
         </div>
         <div *ngFor="let food of foodTypes">
           <div class="">
@@ -66,18 +73,40 @@
             <div class="row">
               <div *ngFor="let dish of food.menus">
                 <div class="col-md-3">
-                  <div class="card" style="width: 18rem;">
-                    <div class="img-wrap">
-                      <button mat-icon-button class="close" *ngIf="delete" (click)="deleteDish(dish.id)">
-                        <span style="color: red;" class="fa fa-times fa-lg"></span>
-                      </button>
-                      <img src="{{dish.photo}}" class="card-img-top" alt={{dish.name}}>
-                    </div>
-                    <div class="card-body">
-                      <p class="card-text"><b>{{dish.name}}</b><span class="float-right">{{dish.original_price}}</span>
-                      </p>
+                  <div *ngIf="delete; else other_condition">
+                    <div class="card card_one" data-toggle="modal" data-target="#updateDishModal" style="width: 18rem;"
+                      (click)="storeDishId(dish.id)">
+                      <div class="img-wrap">
+                        <button mat-icon-button class="close" *ngIf="delete" (click)="deleteDish(dish.id)">
+                          <span style="color: red;" class="fa fa-times fa-lg"></span>
+                        </button>
+
+                        <img src="{{dish.photo}}" class="card-img-top" alt={{dish.name}}>
+                      </div>
+                      <div class="card-body">
+                        <p class="card-text"><b>{{dish.name}}</b><span
+                            class="float-right">{{dish.original_price}}</span>
+                        </p>
+                      </div>
                     </div>
                   </div>
+                  <ng-template #other_condition>
+                    <div>
+                      <div class="card card_one" style="width: 18rem;">
+                        <div class="img-wrap">
+                          <button mat-icon-button class="close" *ngIf="delete" (click)="deleteDish(dish.id)">
+                            <span style="color: red;" class="fa fa-times fa-lg"></span>
+                          </button>
+                          <img src="{{dish.photo}}" class="card-img-top" alt={{dish.name}}>
+                        </div>
+                        <div class="card-body">
+                          <p class="card-text"><b>{{dish.name}}</b><span
+                              class="float-right">{{dish.original_price}}</span>
+                          </p>
+                        </div>
+                      </div>
+                    </div>
+                  </ng-template>
                   <!--card ends-->
                 </div>
               </div>
@@ -103,35 +132,39 @@
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
-      <div class="modal-body">
-        <form>
+
+      <form name="form" (ngSubmit)="onSubmit()" #f="ngForm">
+        <div class="modal-body">
           <div class="row">
             <div class="col">
               <div class="form-group">
-                <label for="dish name">Dish Name</label>
-                <input type="name" class="form-control" id="name" aria-describedby="nameHelp" placeholder="Dish name">
+                <label for="dis_name">Dish Name</label>
+                <input type="name" class="form-control" name="dishName" [(ngModel)]="model.dishName"
+                  #dishName="ngModel">
               </div>
             </div>
             <div class="col">
-                <div class="form-group">
-                    <label for="dish_category">Dish Category</label>
-                    <select class="form-control" id="dish" name="dish">
-                      <option *ngFor="let food of foodTypes" [value]="food.category">{{food.category}}</option>
-                    </select>
-                </div>
+              <div class="form-group">
+                <label for="dish_category">Dish Category</label>
+                <select class="form-control" name="category" [(ngModel)]="model.category" #category="ngModel">
+                  <option *ngFor="let food of foodTypes" [value]="food.category_id">{{food.category}}</option>
+                </select>
               </div>
+            </div>
           </div>
           <div class="row">
             <div class="col">
               <div class="form-group">
                 <label for="price">Price</label>
-                <input type="name" class="form-control" id="price" placeholder="Price">
+                <input type="name" class="form-control" name="price" [(ngModel)]="model.price" #price="ngModel"
+                  placeholder="Price">
               </div>
             </div>
             <div class="col">
               <div class="form-group">
                 <label for="quantity">Quantity</label>
-                <input type="name" class="form-control" id="quantity" placeholder="quantity">
+                <input type="name" class="form-control" name="quantity" [(ngModel)]="model.quantity" #quantity="ngModel"
+                  placeholder="quantity">
               </div>
             </div>
           </div>
@@ -139,34 +172,139 @@
             <div class="col">
               <div class="form-group">
                 <label for="offer">Offer</label>
-                <input type="name" class="form-control" id="offer" placeholder="Offer">
+                <input type="name" class="form-control" name="offer" [(ngModel)]="model.offer" #offer="ngModel"
+                  placeholder="Offer">
               </div>
             </div>
           </div>
-        </form>
-      </div>
-      <div class="modal-footer">
-        <button type="submit" class="btn btn-primary">Add</button>
-        <div class="vertical-expansion">
-          <mat-expansion-panel>
-            <mat-expansion-panel-header>
-              <mat-panel-title>
-                Add image
-              </mat-panel-title>
-            </mat-expansion-panel-header>
-            <input type="file" name="pic" accept="image/*">
-            <input type="submit">
-          </mat-expansion-panel>
+
         </div>
-      </div>
+        <div class="modal-footer">
+          <button type="submit" class="btn btn-primary">Add</button>
+          <div class="vertical-expansion">
+            <mat-expansion-panel>
+              <mat-expansion-panel-header>
+                <mat-panel-title>
+                  Add image
+                </mat-panel-title>
+              </mat-expansion-panel-header>
+              <input type="file" name="pic" accept="image/*">
+              <input type="submit">
+            </mat-expansion-panel>
+          </div>
+        </div>
+      </form>
     </div>
   </div>
 </div>
-<div class="modal" tabindex="-1" id="exampleModal1" role="dialog">
+
+<!-- Modal -->
+<div class="modal modal-1 fade main-model" id="updateDishModal" tabindex="-1" role="dialog"
+  aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog" role="document">
     <div class="modal-content">
-      <input type="text">
-      <span>Hello this is the text</span>
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Add Item</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+
+      <form name="form" (ngSubmit)="updateDish()" #f="ngForm">
+        <div class="modal-body">
+          <div class="row">
+            <div class="col">
+              <div class="form-group">
+                <label for="dis_name">Dish Name</label>
+                <input type="name" class="form-control" name="dishName" [(ngModel)]="model.dishName"
+                  #dishName="ngModel">
+              </div>
+            </div>
+            <div class="col">
+              <div class="form-group">
+                <label for="dish_category">Dish Category</label>
+                <select class="form-control" name="category" [(ngModel)]="model.category" #category="ngModel">
+                  <option *ngFor="let food of foodTypes" [value]="food.category_id">{{food.category}}</option>
+                </select>
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col">
+              <div class="form-group">
+                <label for="price">Price</label>
+                <input type="name" class="form-control" name="price" [(ngModel)]="model.price" #price="ngModel"
+                  placeholder="Price">
+              </div>
+            </div>
+            <div class="col">
+              <div class="form-group">
+                <label for="quantity">Quantity</label>
+                <input type="name" class="form-control" name="quantity" [(ngModel)]="model.quantity" #quantity="ngModel"
+                  placeholder="quantity">
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col">
+              <div class="form-group">
+                <label for="offer">Offer</label>
+                <input type="name" class="form-control" name="offer" [(ngModel)]="model.offer" #offer="ngModel"
+                  placeholder="Offer">
+              </div>
+            </div>
+          </div>
+
+        </div>
+        <div class="modal-footer">
+          <button type="submit" class="btn btn-primary">Update</button>
+          <div class="vertical-expansion">
+            <mat-expansion-panel>
+              <mat-expansion-panel-header>
+                <mat-panel-title>
+                  Add image
+                </mat-panel-title>
+              </mat-expansion-panel-header>
+              <input type="file" name="pic" accept="image/*">
+              <input type="submit">
+            </mat-expansion-panel>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+
+<!-- Modal -->
+<div class="modal fade" id="addCategory" tabindex="-1" role="dialog" aria-labelledby="addDishCategory"
+  aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Add New Category</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <form name="categoryForm" (ngSubmit)="addDishCategory()" #f="ngForm">
+        <div class="modal-body">
+
+          <div class="row">
+            <div class="col">
+              <div class="form-group">
+                <label for="dis_name">Dish Category</label>
+                <input type="text" class="form-control" name="categoryName" [(ngModel)]="modelCategory.categoryName"
+                  #categoryName="ngModel">
+              </div>
+            </div>
+          </div>
+
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+          <button type="submit" class="btn btn-primary">Add Category</button>
+        </div>
+      </form>
     </div>
   </div>
 </div>

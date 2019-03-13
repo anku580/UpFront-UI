@@ -1,66 +1,107 @@
 <div class="example-container overflow-handling" [class.example-is-mobile]="mobileQuery.matches">
-  <mat-toolbar class="warning" class="example-toolbar">
+  <!-- <mat-toolbar class="warning" class="example-toolbar">
     <button mat-icon-button (click)="snav.toggle()">
       <i class="fa fa-cutlery fa-lg" aria-hidden="true"></i>
     </button>
-    <!-- <div class="col-md-6"> -->
-    <div class="wrap align-items-center">
-      <div class="search">
-        <input type="text" class="searchTerm" placeholder="Search...">
-        <button type="submit" class="searchButton">
-          <i class="fa fa-search"></i>
-        </button>
+  </mat-toolbar> -->
+  
+    
+    <mat-sidenav-container class="example-sidenav-container" [style.marginTop.px]="mobileQuery.matches ? 56 : 0">
+      <mat-sidenav #snav [mode]="mobileQuery.matches ? 'over' : 'side'" [fixedInViewport]="mobileQuery.matches"
+        fixedTopGap="400" class="color">
+
+        <div class="text-size overflow-handling">
+          <mat-list-item>
+              <div class="text-center mt-2">
+              <button mat-icon-button (click)="customToggle()">
+                  <!-- <i class="fa fa-cutlery fa-lg" aria-hidden="true"></i> -->
+                  <img src="../../assets/after.png" style="height: 40px; width: 40px">
+              </button>
+            </div>
+          </mat-list-item>
+          <mat-list-item>
+            <div class="middle">
+              <div class="space_top_logo">
+                <a mat-button class="button ml-2" routerLink="/merchant/navbar/request" routerLinkActive="active"><i
+                    class="fa fa-file-text-o mr-1"></i>Requests</a>
+              </div>
+            </div>
+          </mat-list-item>
+          <mat-list-item>
+            <div class="middle">
+              <div class="mt-4">
+                <a mat-button class="button ml-2" routerLink="/merchant/navbar/order" routerLinkActive="active"><i
+                    class="fa fa-spoon mr-1" aria-hidden="true"></i>Orders</a>
+              </div>
+            </div>
+          </mat-list-item>
+          <!-- <mat-list-item>
+          <div class="text-center">
+            <div class="mt-4">
+              <a mat-button class="button ml-2"><i class="fa fa-money mr-1" aria-hidden="true"></i>Payement</a>
+            </div>
+          </div>
+        </mat-list-item> -->
+          <mat-list-item>
+            <div class="middle">
+              <div class="mt-4">
+                <a mat-button class="button ml-2" routerLink="/merchant/navbar/history" routerLinkActive="active"><i
+                    class="fa fa-history mr-1" aria-hidden="true"></i>History</a>
+              </div>
+            </div>
+          </mat-list-item>
+        </div>
+      </mat-sidenav>
+      <mat-sidenav-content class="overflow-handling">
+        <div class="container-fluid">
+          <div class="row mt-2">
+              <div class="col-md-1 ml-2">
+                <div *ngIf="hide">
+                  <button mat-icon-button (click)="customToggle()">
+                      <!-- <i class="fa fa-cutlery fa-lg" aria-hidden="true"></i> -->
+                      <img src="../../assets/before.png" style="height: 40px; width: 40px">
+                  </button>
+                </div>
+              </div>
+              <div class="col-md-4">
+                <div class="wrap">
+                  <div class="search">
+                    <input type="text" class="searchTerm" placeholder="Search...">
+                    <button type="submit" class="searchButton">
+                      <i class="fa fa-search"></i>
+                    </button>
+                  </div>
+                </div>
+              </div>
+              <!-- </div> -->
+              <div class="col-md-6">
+                <div class="float-right">
+                  <a mat-button class="button"><i class="fa fa-question-circle" aria-hidden="true"></i>Queries</a>
+                  <div *ngIf="merchantUserName" class="float-right">
+                    <a role="button" mat-icon-button [matMenuTriggerFor]="menu">
+                      <img src="../../assets/Myphoto.jpg" alt="Avatar" style="height:40px; width: 40px;" class="user">
+        
+                    </a>
+                    <mat-menu #menu="matMenu">
+                      <button mat-menu-item routerLink="/admin">
+                        <!-- <mat-icon>dialpad</mat-icon> -->
+                        <span>Profile</span>
+                      </button>
+                      <button mat-menu-item>
+                        <!-- <mat-icon>voicemail</mat-icon> -->
+                        <span>Dashboard</span>
+                      </button>
+                      <button mat-menu-item routerLink="/login">
+                        <!-- <mat-icon>notifications_off</mat-icon> -->
+                        <span>Logout</span>
+                      </button>
+                    </mat-menu>
+                  </div>
+                </div>
+              </div>
+            </div>
+        <router-outlet></router-outlet>
       </div>
-    </div>
-    <!-- </div> -->
-    <div class="display-right"></div>
-    <a class="button"><i class="fa fa-question-circle" aria-hidden="true"></i>Queries</a>
-    <a class="button ml-3" routerLink="/admin"><i class="fa fa-user" aria-hidden="true"></i>My Profile</a>
-
-    <!-- <h1 class="example-app-name">Food Order Items</h1> -->
-  </mat-toolbar>
-
-  <mat-sidenav-container class="example-sidenav-container" [style.marginTop.px]="mobileQuery.matches ? 56 : 0">
-    <mat-sidenav #snav [mode]="mobileQuery.matches ? 'over' : 'side'" [fixedInViewport]="mobileQuery.matches"
-      fixedTopGap="400" class="color">
-
-      <div class="text-size overflow-handling">
-        <mat-list-item>
-
-          <div class="mt-4">
-            <div class="text-center">
-                <i class="fa fa-file-text-o"></i>
-              <a class="button ml-2" routerLink="/merchant/navbar/request" routerLinkActive="active">Requests</a>
-            </div>
-          </div>
-        </mat-list-item>
-        <mat-list-item>
-          <div class="text-center">
-            <div class="mt-4">
-              <i class="fa fa-spoon" aria-hidden="true"></i><a class="button ml-2"
-                routerLink="/merchant/navbar/order">Orders</a>
-            </div>
-          </div>
-        </mat-list-item>
-        <mat-list-item>
-          <div class="text-center">
-            <div class="mt-4">
-              <i class="fa fa-money" aria-hidden="true"></i><a class="button ml-2">Payement</a>
-            </div>
-          </div>
-        </mat-list-item>
-        <mat-list-item>
-          <div class="text-center">
-            <div class="mt-4">
-              <i class="fa fa-history" aria-hidden="true"></i><a class="button ml-2"
-                routerLink="/merchant/navbar/history">History</a>
-            </div>
-          </div>
-        </mat-list-item>
-      </div>
-    </mat-sidenav>
-    <mat-sidenav-content class="overflow-handling">
-      <router-outlet></router-outlet>
-    </mat-sidenav-content>
-  </mat-sidenav-container>
+      </mat-sidenav-content>
+    </mat-sidenav-container>
 </div>

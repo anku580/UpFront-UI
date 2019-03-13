@@ -108,3 +108,34 @@ h1.example-app-name {
 .display-right {
   flex: 1 1 auto;
 }
+
+.card {
+  border-radius : 20px;
+}
+
+.btn-primary {
+  background-color : #27FF52;
+  border-width: 2px 4px;
+  border-radius: 40px;
+  border: 0px solid;
+}
+
+.btn-danger {
+  background-color : #DEDEDE;
+  border-width: 2px 4px;
+  border-radius: 40px;
+  border: 0px solid;
+}
+
+.btn-warning {
+  display: block;
+  height: 50px;
+  background-image: linear-gradient(to bottom,#FFDA61,#FF5353);
+  border-width: 2px 4px;
+  border-radius: 40px;
+  border: 0px solid;
+}
+
+.btn-warning:hover {
+ 
+}

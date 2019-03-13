@@ -1,22 +1,22 @@
-<div class="container-fluid">
+<!-- <div class="container"> -->
   <div class="row mt-5">
     <div class="col-md-6">
     </div>
     <div class="col-md-3">
-      <div class="text-center">
+      <div class="text-center mt-2">
         <span id="round">
           &nbsp;{{ orders.length }}
         </span>
-        <b>Current Requests</b>
+        <b class="ml-1">Current Requests</b>
       </div>
     </div>
     <div class="col-md-3">
-      <button class="btn btn-lg btn-warning" routerLink="/merchant/menu">Available Items</button>
+      <button class="btn btn-lg btn-warning" routerLink="/restaurant/{{resId}}">Available Items</button>
     </div>
   </div>
 
   <!-- The first table structure -->
-  <div class="row mt-5">
+  <div class="row mt-2">
     <div class="col-md-1">
       <div class="text-center">
         S.No
@@ -39,14 +39,14 @@
     </div>
     <div class="col-md-2">
       <div class="text-center">
-        Order Status
+       
       </div>
     </div>
   </div>
 
   <div *ngFor="let order of orders; let i = index">
 
-    <div class="card order-table">
+    <div class="card order-table mt-2">
       <div class="card-body">
         <div class="row">
           <div class="col-md-1">
@@ -71,12 +71,16 @@
           </div>
           <div class="col-md-2">
             <div class="text-center">
+              <div class="row">
               <button class="btn btn-primary">Accept</button>
+              </div>
+              <div class="row mt-1">
               <button class="btn btn-danger ml-1">Reject</button>
+              </div>
             </div>
           </div>
         </div>
       </div>
     </div>
   </div>
-</div>
+<!-- </div> -->

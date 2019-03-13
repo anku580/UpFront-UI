@@ -84,9 +84,10 @@ export class AuthService {
     this.isAuthenticated = false;
     // localStorage.removeItem(this.tokenKey);
     localStorage.removeItem('currentUser');
+    localStorage.removeItem('restaurantId')
   }
 
-  signUp(user: any): Observable<any> {
+  signUp(user: any) {
 
     let sendObj = {
       "merchant": {
@@ -104,7 +105,8 @@ export class AuthService {
     );
   }
 
-  logIn(user: any): Observable<any> {
+  logIn(user: any){
+    this.destroyUserCredentials();
     console.log(user)
     return this.http.post<AuthResponse>(baseURL + 'myuser/login/merch/',
       {
@@ -112,6 +114,7 @@ export class AuthService {
         'password': user.password
       })
       .pipe(map(res => {
+        console.log("Inside the pipe");
         this.storeUserCredentials(
           {
             username: user.username,

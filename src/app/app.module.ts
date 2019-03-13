@@ -21,7 +21,7 @@ import {
   MatButtonModule, MatCheckboxModule, MatDatepickerModule, MatFormFieldModule,
   MatInputModule, MatRadioModule, MatSelectModule, MatSliderModule,
   MatSlideToggleModule, MatToolbarModule, MatListModule, MatGridListModule,
-  MatCardModule, MatIconModule, MatProgressSpinnerModule, MatDialogModule
+  MatCardModule, MatIconModule, MatProgressSpinnerModule, MatDialogModule, MatMenuModule
 } from '@angular/material';
 import {MatTabsModule} from '@angular/material/tabs';
 
@@ -41,6 +41,7 @@ import { MerchantResturantsService } from './services/merchant-resturants.servic
 import { RestangularModule, Restangular } from 'ngx-restangular';
 import { RestangularConfigFactory } from './shared/restConfig';
 import { baseURL } from './shared/baseURL';
+import { encodedImage } from './shared/encodedImage'
 import { HttpClientModule } from '@angular/common/http';
 import { AuthInterceptor, UnauthorizedInterceptor } from './services/auth.interceptor';
 // import { HighlightDirective } from './directives/highlight.directive';
@@ -102,7 +103,7 @@ const routes: Routes = [
     MatInputModule, MatRadioModule, MatSelectModule, MatSliderModule,
     MatSlideToggleModule, MatToolbarModule, MatListModule, MatGridListModule,
     MatCardModule, MatIconModule, MatProgressSpinnerModule, MatDialogModule, BrowserAnimationsModule, MatSidenavModule,
-    MatExpansionModule,MatTabsModule,
+    MatExpansionModule,MatTabsModule,MatMenuModule,
     RestangularModule.forRoot(RestangularConfigFactory),
     HttpClientModule
   ],
@@ -112,6 +113,7 @@ const routes: Routes = [
     ProcessHttpmsgService,
     MerchantResturantsService,
     { provide : 'baseURL', useValue : baseURL},
+    { provide : 'encodedImage', useValue : encodedImage},
     {
       provide: HTTP_INTERCEPTORS,
       useClass: UnauthorizedInterceptor,

@@ -5,6 +5,9 @@ import { AuthService } from '../services/auth.service';
 import { Params, ActivatedRoute, Router } from '@angular/router';
 import { MerchantMenuServiceService } from '../services/merchant-menu-service.service';
 import { switchMap } from 'rxjs/operators';
+import { encodedImage } from '../shared/encodedImage'
+import { foodtypes } from '../shared/foodTypes';
+import { FormGroup } from '@angular/forms';
 
 @Component({
   selector: 'app-merchant-menu',
@@ -15,18 +18,15 @@ export class MerchantMenuComponent implements OnInit, OnDestroy {
 
   mobileQuery: MediaQueryList;
   subscription: Subscription;
-  delete: boolean;
+  delete: boolean = false;
+  update: boolean;
   username: string;
   category: Array<any>;
-  foodTypes: Array<any>
-  private restaurantId : number;
-
-  food = [
-    {
-      "type": "Western",
-      "name": ""
-    }
-  ]
+  foodTypes: Array<foodtypes>
+  model: any = {};
+  modelCategory: any = {};
+  private dishID: any;
+  private restaurantId: number;
 
   private _mobileQueryListener: () => void;
 
@@ -38,7 +38,7 @@ export class MerchantMenuComponent implements OnInit, OnDestroy {
     private menuService: MerchantMenuServiceService) { }
 
 
-  
+
 
   ngOnInit() {
 
@@ -47,9 +47,10 @@ export class MerchantMenuComponent implements OnInit, OnDestroy {
     this.mobileQuery.addListener(this._mobileQueryListener);
 
     this.authService.loadUserCredentials();
-    this.subscription = this.authService.getUsername()
-      .subscribe(name => { console.log(name); this.username = name; })
-    
+    let currentUser = JSON.parse(localStorage.getItem('currentUser'));
+
+    this.username = currentUser.username;
+
     /*-------------------------------------------------  
     |                                                  |
     |  It fetches the categories from the menu service |
@@ -57,14 +58,15 @@ export class MerchantMenuComponent implements OnInit, OnDestroy {
     --------------------------------------------------*/
     this.route.params.pipe(switchMap((params: Params) => {
       this.restaurantId = params['id'];
+      localStorage.setItem('restaurantId', JSON.stringify(this.restaurantId));
       return this.menuService.getMerchantMenu(params['id']);
     }))
-    .subscribe(menu => {
-        this.foodTypes = menu.menu_list;
+      .subscribe(menu => {
+        this.foodTypes = menu.menus;
         console.log(this.foodTypes)
-    })
+      })
 
-    
+
   }
 
   ngOnDestroy(): void {
@@ -86,9 +88,14 @@ export class MerchantMenuComponent implements OnInit, OnDestroy {
     this.authService.logOut();
   }
 
-  onSideNavScroll(event){ event.stopPropagation() }
+  onSideNavScroll(event) { event.stopPropagation() }
 
+  updateStatus() {
+    this.delete = !this.delete;
+    
+  }
   deleteDish(dishId) {
+    this.delete = true;
     console.log("Dish deleted", dishId);
 
     /*-------------------------------------------------  
@@ -97,12 +104,91 @@ export class MerchantMenuComponent implements OnInit, OnDestroy {
     |                                                  | 
     --------------------------------------------------*/
     this.menuService.deleteMerchantDish(this.restaurantId, dishId)
-    .subscribe( response => {
-      alert("Dish deleted");
-    }, error => {
-      console.error(error);
-    })
+      .subscribe(response => {
+        alert("Dish deleted");
+        this.menuService.getMerchantMenu(this.restaurantId)
+          .subscribe(dishes => {
+            this.foodTypes = dishes.menus;
+          })
+      }, error => {
+        console.error(error);
+      })
     this.delete = false;
   }
 
+  onSubmit() {
+    console.log(JSON.stringify(this.model))
+    let dishData = {
+      category_id: this.model.category,
+      name: this.model.dishName,
+      original_price: this.model.price,
+      quantity: this.model.quantity,
+      is_veg: true,
+      rating: 5,
+      photo: encodedImage
+    }
+    console.log(dishData)
+
+    this.menuService.addMerchantDish(this.restaurantId, dishData)
+      .subscribe(response => {
+        alert("Dish added!");
+
+        console.log(response)
+        this.menuService.getMerchantMenu(this.restaurantId)
+          .subscribe(dishes => {
+            this.foodTypes = dishes.menus;
+          })
+      }, error => {
+        console.error(error);
+      })
+  }
+
+
+  addDishCategory() {
+    console.log(JSON.stringify(this.modelCategory))
+
+    let addNewCategory = {
+      name: this.modelCategory.categoryName
+    }
+
+    this.menuService.addMerchantDishCategory(this.restaurantId, addNewCategory)
+      .subscribe(response => {
+        alert("Category added!");
+        console.log(response)
+        this.menuService.getMerchantMenu(this.restaurantId)
+          .subscribe(dishes => {
+            this.foodTypes = dishes.menus;
+          })
+      }, error => {
+        console.error(error);
+      })
+  }
+
+
+  updateDish() {
+
+    let updateDishData = {
+      category_id: this.model.category,
+      name: this.model.dishName,
+      original_price: this.model.price,
+      quantity: this.model.quantity,
+      is_veg: true,
+      rating: 5,
+      photo: encodedImage
+    }
+
+    this.menuService.updateMerchantDish(this.restaurantId, this.dishID, updateDishData)
+      .subscribe((response) => {
+        alert("Dish Updated");
+        console.log(response);
+        this.menuService.getMerchantMenu(this.restaurantId)
+          .subscribe(dishes => {
+            this.foodTypes = dishes.menus;
+          })
+      }, err => { console.log(err) })
+  }
+
+  storeDishId(dish_id: any) {
+    this.dishID = dish_id;
+  }
 }

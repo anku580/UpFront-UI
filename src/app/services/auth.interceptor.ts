@@ -10,19 +10,21 @@ import { Router } from '@angular/router'
 export class AuthInterceptor implements HttpInterceptor {
     constructor(private inj: Injector, private router: Router) { }
 
-      intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
+    intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
         const authService = this.inj.get(AuthService);
-        
+
         let currentUser = JSON.parse(localStorage.getItem('currentUser'));
         // Get the auth header from the service.
         //const authToken = authService.getToken();
-        console.log("Interceptor: " + currentUser);
-        // Clone the request to add the new header.
-        const authReq = req.clone({headers: req.headers.set('Authorization', 'Token ' + currentUser.token)});
-        console.log(authReq)
-            // Pass on the cloned request instead of the original request.
-        return next.handle(authReq);
-      }
+        if (currentUser && currentUser.token) {
+            console.log("Interceptor: " + currentUser);
+            // Clone the request to add the new header.
+            req= req.clone({ headers: req.headers.set('Authorization', 'Token ' + currentUser.token) });
+            console.log(req)
+        }
+        // Pass on the cloned request instead of the original request.
+        return next.handle(req);
+    }
 }
 
 @Injectable()

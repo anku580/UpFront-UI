@@ -1,5 +1,6 @@
-import { Component, OnInit, ChangeDetectorRef, OnDestroy } from '@angular/core';
+import { Component, OnInit, ChangeDetectorRef, OnDestroy, ViewChild } from '@angular/core';
 import { MediaMatcher } from '@angular/cdk/layout'; 
+import {MatSidenav} from '@angular/material/sidenav';
 
 @Component({
   selector: 'app-merchant-navbar',
@@ -7,7 +8,10 @@ import { MediaMatcher } from '@angular/cdk/layout';
   styleUrls: ['./merchant-navbar.component.css']
 })
 export class MerchantNavbarComponent implements OnInit, OnDestroy {
+  @ViewChild('snav') sidenav: MatSidenav;
 
+  merchantUserName: string;
+  resId : number;
   orders= [
     {
       "items" : [
@@ -48,6 +52,7 @@ export class MerchantNavbarComponent implements OnInit, OnDestroy {
     }
   ]
   mobileQuery: MediaQueryList;
+  hide = true;
 
   constructor(private changeDetectorRef: ChangeDetectorRef,
     private media: MediaMatcher) { }
@@ -59,6 +64,11 @@ export class MerchantNavbarComponent implements OnInit, OnDestroy {
     this.mobileQuery = this.media.matchMedia('(max-width: 600px)');
     this._mobileQueryListener = () => this.changeDetectorRef.detectChanges();
     this.mobileQuery.addListener(this._mobileQueryListener);
+
+    let currentUser = JSON.parse(localStorage.getItem('currentUser'));
+    this.merchantUserName = currentUser.username;
+    
+    
   }
 
   ngOnDestroy(): void {
@@ -66,5 +76,9 @@ export class MerchantNavbarComponent implements OnInit, OnDestroy {
     this.mobileQuery.removeListener(this._mobileQueryListener);
   }
 
+  customToggle() {
+    this.hide = !this.hide;
+    this.sidenav.toggle();
+  }
 
 }

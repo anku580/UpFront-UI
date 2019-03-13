@@ -129,3 +129,25 @@ h1.example-app-name {
 .text-center1 {
   text-align : center;
 }
+
+.card {
+  border-radius : 20px;
+}
+
+.add_pading {
+  padding: 20px;
+}
+
+.container-fluid {
+  font-family: 'Montserrat', sans-serif;
+
+}
+
+text-center {
+  font-family: 'Montserrat', sans-serif;
+
+}
+
+/* .round-bottom {
+  border-bottom-left-radius: 25px;
+} */

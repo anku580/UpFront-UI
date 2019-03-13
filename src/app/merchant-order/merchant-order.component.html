@@ -1,8 +1,7 @@
-<div class="container-fluid">
-  <div class="">
-    <mat-tab-group>
-      <mat-tab label="All">
-        <div class="container-fluid restrict_overflow">
+<div class="container-fluid mt-3">
+  <mat-tab-group>
+    <mat-tab label="All">
+      <div>
         <div class="row mt-5">
           <div class="col-md-2 text-center">
             <span><b>Order ID</b></span>
@@ -17,91 +16,24 @@
             <b>Time</b>
           </div>
         </div>
-        <div *ngFor="let order of orderDetails">
-          <mat-divider></mat-divider>
-          <div class="row mt-4">
-            <div class="col-md-2 text-center">
-              <span>{{order.order_id}}</span>
-            </div>
-            <div class="col-md-4 text-center">
-              <span>{{ order.items}}</span>
-            </div>
-            <div class="col-md-2 text-center">
-              {{order.status}}
-            </div>
-            <div class="col-md-2 text-center">
-              {{order.order_time}}
-            </div>
-          </div>
-        </div>
-      </div>
-      </mat-tab>
-      <mat-tab label="Processing">
-
-        <!-- The processing order structure -->
-        <div class="row mt-5">
-          <div class="col-md-2">
-            <div class="text-center">
-              Order ID
-            </div>
-          </div>
-          <div class="col-md-3">
-            <div class="text-center">
-              Items
-            </div>
-          </div>
-          <div class="col-md-1">
-            <div class="text-center">
-              Quantity
-            </div>
-          </div>
-          <div class="col-md-2">
-            <div class="text-center">
-              Amount
-            </div>
-          </div>
-          <div class="col-md-2">
-            <div class="text-center">
-              Payment Mode
-            </div>
-          </div>
-          <div class="col-md-2">
-            <div class="text-center">
-              Time
-            </div>
-          </div>
-        </div>
-
-        <div *ngFor="let order of orderDetails; let i = index">
-
+        <div *ngFor="let order of orderDetails" class="mt-2">
           <div class="card">
-
             <div class="row">
               <div class="col-md-2">
                 <div class="text-center">
-                  {{ order.order_id }}
+                  <span>{{order.order_id}}</span>
                 </div>
               </div>
-              <div class="col-md-3">
-                <div *ngFor="let item of order.items" class="text-center">
-                  {{item}}
-                </div>
-              </div>
-              <div class="col-md-1">
-                <div *ngFor="let quant of order.quantites">
-                  <div class="text-center">
-                    {{quant}}
+              <div class="col-md-4">
+                <div class="text-center">
+                  <div *ngFor="let item of order.items">
+                    <span>{{ item }}</span>
                   </div>
                 </div>
               </div>
               <div class="col-md-2">
                 <div class="text-center">
-                  {{order.amount}}
-                </div>
-              </div>
-              <div class="col-md-2">
-                <div class="text-center">
-                  {{order.pay_mode}}
+                  {{order.status}}
                 </div>
               </div>
               <div class="col-md-2">
@@ -112,85 +44,156 @@
             </div>
           </div>
         </div>
-      </mat-tab>
-      <mat-tab label="Completed">
-        <!-- The completed order structure -->
-        <div class="row mt-5">
-          <div class="col-md-2">
-            <div class="text-center">
-              Order ID
-            </div>
+      </div>
+    </mat-tab>
+    <mat-tab label="Processing">
+
+      <!-- The processing order structure -->
+      <div class="row mt-5">
+        <div class="col-md-2">
+          <div class="text-center">
+            Order ID
           </div>
-          <div class="col-md-3">
-            <div class="text-center">
-              Items
-            </div>
+        </div>
+        <div class="col-md-3">
+          <div class="text-center">
+            Items
           </div>
-          <div class="col-md-1">
-            <div class="text-center">
-              Quantity
-            </div>
+        </div>
+        <div class="col-md-1">
+          <div class="text-center">
+            Quantity
           </div>
-          <div class="col-md-2">
-            <div class="text-center">
-              Amount
-            </div>
+        </div>
+        <div class="col-md-2">
+          <div class="text-center">
+            Amount
           </div>
-          <div class="col-md-2">
-            <div class="text-center">
-              Time
+        </div>
+        <div class="col-md-2">
+          <div class="text-center">
+            Status
+          </div>
+        </div>
+        <div class="col-md-2">
+          <div class="text-center">
+            Time
+          </div>
+        </div>
+      </div>
+
+      <div *ngFor="let order of orderDetails; let i = index" class="mt-2">
+        <div class="card">
+          <div class="row add_padding">
+            <div class="col-md-2">
+              <div class="text-center">
+                {{ order.order_id }}
+              </div>
+            </div>
+            <div class="col-md-3">
+              <div *ngFor="let item of order.items" class="text-center">
+                {{item}}
+              </div>
+            </div>
+            <div class="col-md-1">
+              <div *ngFor="let quant of order.quantites">
+                <div class="text-center">
+                  {{quant}}
+                </div>
+              </div>
+            </div>
+            <div class="col-md-2">
+              <div class="text-center">
+                {{order.amount}}
+              </div>
+            </div>
+            <div class="col-md-2">
+              <div class="text-center">
+                <a role="button" class="btn btn-warning">Completed</a>
+              </div>
+            </div>
+            <div class="col-md-2">
+              <div class="text-center">
+                {{order.order_time}}
+              </div>
             </div>
           </div>
         </div>
+      </div>
+    </mat-tab>
+    <mat-tab label="Completed">
+      <!-- The completed order structure -->
+      <div class="row mt-5">
+        <div class="col-md-2">
+          <div class="text-center">
+            Order ID
+          </div>
+        </div>
+        <div class="col-md-3">
+          <div class="text-center">
+            Items
+          </div>
+        </div>
+        <div class="col-md-1">
+          <div class="text-center">
+            Quantity
+          </div>
+        </div>
+        <div class="col-md-2">
+          <div class="text-center">
+            Amount
+          </div>
+        </div>
+        <div class="col-md-2">
+          <div class="text-center">
+            Time
+          </div>
+        </div>
+      </div>
 
-        <div *ngFor="let order of orderDetails; let i = index">
+      <div *ngFor="let order of orderDetails; let i = index" class="mt-2">
+        <div class="card">
+          <div class="row">
+            <div class="col-md-2">
+              <div class="text-center">
+                {{ order.order_id }}
+              </div>
+            </div>
+            <div class="col-md-3">
+              <div *ngFor="let item of order.items" class="text-center">
+                {{item}}<br>
+              </div>
 
-          <div class="card">
-
-            <div class="row">
-              <div class="col-md-2">
+            </div>
+            <div class="col-md-1 text-center">
+              <div *ngFor="let quant of order.quantites">
                 <div class="text-center">
-                  {{ order.order_id }}
-                </div>
-              </div>
-              <div class="col-md-3">
-                <div *ngFor="let item of order.items" class="text-center">
-                  {{item}}<br>
-                </div>
-
-              </div>
-              <div class="col-md-1 text-center">
-                <div *ngFor="let quant of order.quantites">
-                  <div class="text-center">
-                    {{quant}}<br>
-                  </div>
-                </div>
-              </div>
-              <div class="col-md-2">
-                <div class="text-center">
-                  {{order.amount}}
-                </div>
-              </div>
-              <div class="col-md-4">
-                <div class="row">
-                  <div class="col-md-6">Ordered</div>
-                  <div class="col-md-6">{{order.order_time}}</div>
-                </div>
-                <div class="row">
-                  <div class="col-md-6">Picked Up</div>
-                  <div class="col-md-6">{{order.order_completion_time}}</div>
-                </div>
-                <div class="row">
-                  <div class="col-md-6">Payment</div>
-                  <div class="col-md-6">{{order.pay_mode}}</div>
+                  {{quant}}<br>
                 </div>
               </div>
             </div>
-
+            <div class="col-md-2">
+              <div class="text-center">
+                {{order.amount}}
+              </div>
+            </div>
+            <div class="col-md-4">
+              <div class="row">
+                <div class="col-md-6">Ordered</div>
+                <div class="col-md-6">{{order.order_time}}</div>
+              </div>
+              <div class="row">
+                <div class="col-md-6">Picked Up</div>
+                <div class="col-md-6">{{order.order_completion_time}}</div>
+              </div>
+              <div class="row">
+                <div class="col-md-6">Payment</div>
+                <div class="col-md-6">{{order.pay_mode}}</div>
+              </div>
+            </div>
           </div>
-
         </div>
-      </mat-tab>
-    </mat-tab-group>
-  </div>
+      </div>
+    </mat-tab>
+  </mat-tab-group>
 </div>

@@ -9,6 +9,8 @@ import { MediaMatcher } from '@angular/cdk/layout';
 })
 export class MerchantOrderRequestComponent implements OnInit, OnDestroy {
 
+  private resId : number;
+
   orders= [
     {
       "items" : [
@@ -60,6 +62,9 @@ export class MerchantOrderRequestComponent implements OnInit, OnDestroy {
     this.mobileQuery = this.media.matchMedia('(max-width: 600px)');
     this._mobileQueryListener = () => this.changeDetectorRef.detectChanges();
     this.mobileQuery.addListener(this._mobileQueryListener);
+
+    let restaurantId = localStorage.getItem('restaurantId');
+    this.resId = JSON.parse(restaurantId);
   }
 
   ngOnDestroy(): void {
